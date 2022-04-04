@@ -1,8 +1,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://www.ulaval.ca/en/" target="_blank">
-    <img src="https://ssc.ca/sites/default/files/logo-ulaval-reseaux-sociaux.jpg" alt="Logo" width="280" height="100">
+  <a href="https://github.com/TORNGATS/batman-ebt">
+    <img src="https://www4.fsa.ulaval.ca/wp-content/uploads/2018/12/fsaulaval.jpg" alt="Logo" width="320" height="100">
+  </a>
+  <a href="https://github.com/TORNGATS/batman-ebt">
+    <img src="https://torngats.ca/css/img/logo-en_US.png?1603473813" alt="Logo" width="320" height="100">
   </a>
 
   <h3 align="center">GIMP Labeling Converter</h3>
