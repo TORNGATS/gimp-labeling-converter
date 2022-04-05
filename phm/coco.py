@@ -67,6 +67,10 @@ def handler_coco__(
         logging.info('Running MS COCO handler in parallel mode ...')
         coco_output = handler_coco_parallel__(files, helper, categories, file_out, num_workers=num_workers, **kwargs)
 
+    if 'annotations' in coco_output.keys():
+        for i in range(len(coco_output['annotations'])):
+            coco_output['annotations'][i]['image_id'] = i+1
+
     with open(file_out, 'w') as fout:
         json.dump(coco_output, fout, indent = 4)
 
