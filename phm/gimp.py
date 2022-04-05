@@ -49,7 +49,7 @@ def gimp_helper(file : str, binarize : bool = False, **kwargs) -> Dict[str, Any]
         raise phmError(message=f'The file ({file}) does not exist!')
     if not file.endswith(".xcf"):
         raise phmError(message=f'The file format ({file}) is not supported!')
-    #####################3
+    #####################
     
     # Load the GIMP file
     gimp = GimpDocument(file)
@@ -62,12 +62,12 @@ def gimp_helper(file : str, binarize : bool = False, **kwargs) -> Dict[str, Any]
         return
     
     filename = os.path.basename(file)
-    fex = filename.split('.')[-1].lower()
     result = {}
     logging.info(f'Processing {filename} ...')
     # Go through the layers
     for layer in layers:
         if not layer.isGroup:
+            fex = layer.name.split('.')[-1].lower()
             # Check if the layer is a group layers
             if fex in __file_formats__:
                 result['original'] = layer.image
