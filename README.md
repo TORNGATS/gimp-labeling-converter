@@ -31,6 +31,10 @@ GIMP is a powerful photo editing software which has great potential to be used a
 - Change the layer and repeat the labeling steps.
 - Save the image as "xcf" file format.
 
+<p align="center">
+  <img src="resources/gimp_labeling.png" width="900" title="Software screenshot">
+</p>
+
 #### Program
 This repository provides a CLI tool that converts XCF file to a new format suitable for labeling. The tool also make the users able to add their own handlers for addling support to other types of outputs. Currently, the tool supports two handlers,
 - _mask_ : convert the xcf files to a multiple folders named after extracted classes. Each folder contains the mask presenting the areas labeled as the associated class.
