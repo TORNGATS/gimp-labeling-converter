@@ -34,10 +34,6 @@ def main():
     args = parser.parse_args()
     parser.print_help()
 
-    if args.dir_in is None or not os.path.isdir(args.dir_in):
-        logging.error(f'{args.config} is not a directory!')
-        return
-
     config = {}
     if args.config is not None:
         if not os.path.isfile(args.config) or not args.config.endswith('.json'):
@@ -46,8 +42,8 @@ def main():
         
         with open(args.config, 'r') as fin:
             config = json.load(fin)
-    elif args.dir_in is None:
-        logging.error(f'Input directory is invalid!')
+    elif args.dir_in is None or not os.path.isdir(args.dir_in):
+        logging.error(f'{args.dir_in} is not a directory!')
         return
     else:
         config = vars(args)
