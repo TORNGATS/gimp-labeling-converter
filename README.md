@@ -74,9 +74,19 @@ pip install git+https://github.com/waspinator/pycococreator.git@0.2.0
 ##### Using options
 
 ```
-python main.py --dir "/home/phm/my-dataset/labeled" \
+gimp_labeling_converter --dir "/home/phm/my-dataset/labeled" \
                 --out "/home/phm/Documents/dataset" \
                 --type "mask" --binarize -w 5 \
+                -c "defect" -c "surface_defect" \
+                -n "Parham Test"
+```
+
+or 
+
+```
+gimp_labeling_converter --dir "/home/phm/my-dataset/labeled" \
+                --out "/home/phm/Documents/dataset/test.json" \
+                --type "coco" -w 5 \
                 -c "defect" -c "surface_defect" \
                 -n "Parham Test" --info "Testing the coco handler" \
                 --url "linkedlist.com" \
@@ -88,7 +98,7 @@ python main.py --dir "/home/phm/my-dataset/labeled" \
 Assuming the config file named as "./coco.json",
 
 ```
-python main.py --config "./coco.json"
+gimp_labeling_converter --config "./coco.json"
 ```
 
 ## Contact
