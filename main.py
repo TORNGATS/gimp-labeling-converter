@@ -15,11 +15,11 @@ logging.basicConfig(
 
 parser = argparse.ArgumentParser(description="Processing images labeled by GIMP")
 parser.add_argument('--dir_in', '--dir', '-d', type=str, help="Directory containing the images.")
-parser.add_argument('--file_out', '--dir_out', '--out', '-o', type=str, required=False, help="Output Directory")
+parser.add_argument('--file_out', '--out', '-o', type=str, required=False, help="Output Directory")
 parser.add_argument('--handler', '--type', required=False, default='mask', choices=list_handlers(), help="Handler Type")
 parser.add_argument('--binarize', '-b', action='store_true', help="Whether binarize the masks.")
 parser.add_argument('--num_worker', '-w', type=int, required=False, default=1, help="Number of workers.")
-parser.add_argument('--config', type=str, required=False, help='Configuration file')
+parser.add_argument('--config', type=str, required=False, help='Configuration file path')
 parser.add_argument('--name', '-n', type=str, required=False, default='', help='Dataset name')
 parser.add_argument('--info', type=str, required=False, default='', help='Description')
 parser.add_argument('--url', type=str, required=False, default='', help='URL')
