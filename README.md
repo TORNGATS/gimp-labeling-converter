@@ -78,6 +78,16 @@ python main.py --dir "/home/phm/my-dataset/labeled" \
                 --out "/home/phm/Documents/dataset" \
                 --type "mask" --binarize -w 5 \
                 -c "defect" -c "surface_defect" \
+                -n "Parham Test"
+```
+
+or 
+
+```
+python main.py --dir "/home/phm/my-dataset/labeled" \
+                --out "/home/phm/Documents/dataset/test.json" \
+                --type "coco" -w 5 \
+                -c "defect" -c "surface_defect" \
                 -n "Parham Test" --info "Testing the coco handler" \
                 --url "linkedlist.com" \
                 --version "1.0.0" --year 2022 --contrib "Parham Nooralishahi"
