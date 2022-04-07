@@ -74,7 +74,7 @@ pip install git+https://github.com/waspinator/pycococreator.git@0.2.0
 ##### Using options
 
 ```
-python main.py --dir "/home/phm/my-dataset/labeled" \
+gimp_labeling_converter --dir "/home/phm/my-dataset/labeled" \
                 --out "/home/phm/Documents/dataset" \
                 --type "mask" --binarize -w 5 \
                 -c "defect" -c "surface_defect" \
@@ -84,7 +84,7 @@ python main.py --dir "/home/phm/my-dataset/labeled" \
 or 
 
 ```
-python main.py --dir "/home/phm/my-dataset/labeled" \
+gimp_labeling_converter --dir "/home/phm/my-dataset/labeled" \
                 --out "/home/phm/Documents/dataset/test.json" \
                 --type "coco" -w 5 \
                 -c "defect" -c "surface_defect" \
