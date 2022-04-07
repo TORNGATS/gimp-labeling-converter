@@ -58,10 +58,20 @@ The CLI tool provides the following options,
 | --contrib    	|                 	| Set contributor                            	|
 | --category   	| -c              	| Class Categories                           	|
 
+#### Installation
+
+```
+pip install cython
+pip install git+https://github.com/waspinator/coco.git@2.1.0
+pip install git+https://github.com/waspinator/pycococreator.git@0.2.0
+
+
+```
+
+
 #### Usage
 
 ##### Using options
-
 
 ```
 python main.py --dir "/home/phm/my-dataset/labeled" \
