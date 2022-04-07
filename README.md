@@ -98,7 +98,7 @@ gimp_labeling_converter --dir "/home/phm/my-dataset/labeled" \
 Assuming the config file named as "./coco.json",
 
 ```
-python main.py --config "./coco.json"
+gimp_labeling_converter --config "./coco.json"
 ```
 
 ## Contact
