@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Union
 from gimpformats.gimpXcfDocument import GimpDocument
 
-
 class phmError(Exception):
     def __init__(self, message : str, *args: object) -> None:
         super().__init__(*args)

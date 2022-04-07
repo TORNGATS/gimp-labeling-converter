@@ -9,9 +9,9 @@ from PIL import Image
 import numpy as np
 from pycococreatortools import pycococreatortools
 
-from phm.gimp import translator
-
 from multiprocessing import Process, Manager, Pool, Value
+
+from gimp_labeling_converter.gimp import translator
 
 def generate_categories(anot_dir : str):
     catdir = [ item for item in os.listdir(anot_dir) if os.path.isdir(os.path.join(anot_dir, item)) ]
@@ -55,17 +55,25 @@ def __coco_core_process(file, images, anotations, helper, image_id, segmentation
 def handler_coco__(
     files : Union[str,List[str]], 
     helper : Callable, 
-    categories : List[str],
+    category : Dict[str, int],
     file_out : str = None, 
     num_workers : int = 1, **kwargs):
+
+    if os.path.isdir(file_out):
+        logging.error(f'{file_out} cannot be directory!')
+        return
+
+    if category is None or len(category) == 0:
+        logging.error('Categories are missing!')
+        return
 
     coco_output = None
     if num_workers <= 1:
         logging.info('Running MS COCO handler in single mode ...')
-        coco_output = handler_coco_single__(files, helper, categories, file_out, **kwargs)
+        coco_output = handler_coco_single__(files, helper, category, **kwargs)
     else:
         logging.info('Running MS COCO handler in parallel mode ...')
-        coco_output = handler_coco_parallel__(files, helper, categories, file_out, num_workers=num_workers, **kwargs)
+        coco_output = handler_coco_parallel__(files, helper, category, file_out, num_workers=num_workers, **kwargs)
 
     if 'annotations' in coco_output.keys():
         for i in range(len(coco_output['annotations'])):
@@ -78,8 +86,7 @@ def handler_coco__(
 def handler_coco_parallel__(
     files : Union[str,List[str]], 
     helper : Callable, 
-    categories : List[str],
-    file_out : str = None,
+    category : Dict[str, int],
     dataset_name : str = None,
     description : str = '...',
     url : str = 'https://www.linkedin.com/in/parham-nooralishahi/',
@@ -113,7 +120,7 @@ def handler_coco_parallel__(
     coco_output = {
         "info": _info,
         "licenses": _licenses,
-        "categories": categories,
+        "categories": category,
         "images": [],
         "annotations": []
     }
@@ -126,7 +133,7 @@ def handler_coco_parallel__(
         segmentation_id = manager.Value(int, 1)
 
         fargs.update({
-            'categories' : categories,
+            'categories' : category,
             'dataset_name' : dataset_name,
             'description' : description,
             'url' : url, 
@@ -159,8 +166,7 @@ def handler_coco_parallel__(
 def handler_coco_single__(
     files : Union[str,List[str]], 
     helper : Callable, 
-    categories : List[str],
-    file_out : str = None,
+    category : Dict[str, int],
     dataset_name : str = None,
     description : str = '...',
     url : str = 'https://www.linkedin.com/in/parham-nooralishahi/',
@@ -193,7 +199,7 @@ def handler_coco_single__(
     coco_output = {
         "info": _info,
         "licenses": _licenses,
-        "categories": categories,
+        "categories": category,
         "images": [],
         "annotations": []
     }
@@ -216,8 +222,8 @@ def handler_coco_single__(
         coco_output['images'].append(image_info)
 
         for k in res.keys():
-            if k in categories:
-                class_id = categories[k]
+            if k in category:
+                class_id = category[k]
                 category_info = {'id': class_id}
                 binary_mask = np.asarray(Image.fromarray(res[k]).convert('1')).astype(np.uint8)
                 annotation_info = pycococreatortools.create_annotation_info(

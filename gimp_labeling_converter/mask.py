@@ -8,7 +8,7 @@ from PIL import Image
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
-from phm import translator
+from gimp_labeling_converter.gimp import translator 
 
 def __save_gimp_layers(file: str, helper, file_out : str = None, **kwargs):
     """

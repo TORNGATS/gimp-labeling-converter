@@ -4,8 +4,9 @@ import json
 import logging
 import os
 import sys
+from unicodedata import category
 
-from phm import run_translator, list_handlers
+from gimp_labeling_converter.gimp import list_handlers, phmError, run_translator
 
 logging.basicConfig(
     level=logging.INFO,
@@ -33,6 +34,10 @@ def main():
     args = parser.parse_args()
     parser.print_help()
 
+    if args.dir_in is None or not os.path.isdir(args.dir_in):
+        logging.error(f'{args.config} is not a directory!')
+        return
+
     config = {}
     if args.config is not None:
         if not os.path.isfile(args.config) or not args.config.endswith('.json'):
@@ -41,12 +46,22 @@ def main():
         
         with open(args.config, 'r') as fin:
             config = json.load(fin)
+    elif args.dir_in is None:
+        logging.error(f'Input directory is invalid!')
+        return
     else:
         config = vars(args)
+        cs = {}
+        for i in range(len(args.category)):
+            cs[args.category[i]] = (i + 1)
+        config['category'] = cs
 
     run_translator(
         config['dir_in'], 
         config['handler'], **config)
 
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except phmError as ex:
+        logging.error(ex.message)

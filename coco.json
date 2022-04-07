@@ -3,7 +3,7 @@
     "file_out" : "/home/phm/Documents/temp/phm.coco", 
     "handler" : "coco",
     "num_workers" : 10,
-    "categories" : {
+    "category" : {
         "defect" : 1, 
         "surface_defect" : 2
     },
