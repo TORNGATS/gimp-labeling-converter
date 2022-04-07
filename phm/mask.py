@@ -10,7 +10,7 @@ from typing import Any, Callable, Dict, List, Union
 
 from phm import translator
 
-def __save_gimp_layers(file: str, helper, dir_out : str = None, **kwargs):
+def __save_gimp_layers(file: str, helper, file_out : str = None, **kwargs):
     """
     Save the layers of xcf file in seperated folders
 
@@ -19,7 +19,7 @@ def __save_gimp_layers(file: str, helper, dir_out : str = None, **kwargs):
         args (dict): program arguments
     """
 
-    dout = dir_out if dir_out else os.path.pardir(file)
+    dout = file_out if file_out else os.path.pardir(file)
     res = helper(file, **kwargs)
     filename = os.path.basename(file)
     fname = filename.split(".")[0]

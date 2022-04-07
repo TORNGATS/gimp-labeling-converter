@@ -39,6 +39,9 @@ def translator(name):
 
     return __embed_func
 
+def list_handlers() -> List[str]:
+    return translator_handlers.keys()
+
 __file_formats__ = ['jpg', 'jpeg', 'png', 'tiff', 'bmp']
 
 @exception_logger
@@ -89,7 +92,7 @@ def run_translator(dir_path : str, trans_name : str = 'mask', **kwargs):
     if not trans_name in translator_handlers:
         raise phmError(message=f'{trans_name} is not defined!')
 
-    def __list_files(dir):
+    def __list_files(dir : str):
         if not os.path.isdir(dir):
             raise phmError(message=f'{dir} is not a valid directory!')
         files = list(filter(lambda x: not os.path.isdir(x), glob2.glob(os.path.join(dir, "*.xcf"))))
