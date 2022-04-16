@@ -34,7 +34,9 @@ setuptools.setup(
         'gimpformats',
         'Pillow',
         'scikit-image',
-        'glob2'
+        'glob2',
+        'torch',
+        'torchvision'
     ],
     include_package_data=True,
     python_requires='>=3.7'
