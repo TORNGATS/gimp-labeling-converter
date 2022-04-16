@@ -48,7 +48,7 @@ The cli tool can be initialized in two ways: (a) using config files, and (b) usi
 The CLI tool provides the following options,
 
 | **Options**  	| **Other forms** 	| **Description**                            	              |
-|--------------	|-----------------	|--------------------------------------------	--------------|
+|--------------	|-----------------	|-----------------------------------------------------------|
 | --dir_in     	| --dir -d        	| Directory containing the images.                        	|
 | --file_out   	| --out -o        	| Output Directory                           	              |
 | --handler    	| --type          	| Handler Type [initially "mask", "class_map" and "coco"] 	|
