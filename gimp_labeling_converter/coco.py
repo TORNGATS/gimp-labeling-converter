@@ -73,7 +73,7 @@ def handler_coco__(
         coco_output = handler_coco_single__(files, helper, category, **kwargs)
     else:
         logging.info('Running MS COCO handler in parallel mode ...')
-        coco_output = handler_coco_parallel__(files, helper, category, file_out, num_workers=num_workers, **kwargs)
+        coco_output = handler_coco_parallel__(files, helper, category, num_workers=num_workers, **kwargs)
 
     if 'annotations' in coco_output.keys():
         for i in range(len(coco_output['annotations'])):

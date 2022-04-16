@@ -39,6 +39,7 @@ GIMP is a powerful photo editing software which has great potential to be used a
 This repository provides a CLI tool that converts XCF file to a new format suitable for labeling. The tool also make the users able to add their own handlers for addling support to other types of outputs. Currently, the tool supports two handlers,
 - _mask_ : convert the xcf files to a multiple folders named after extracted classes. Each folder contains the mask presenting the areas labeled as the associated class.
 - _coco_ : convert the xcf files to a single MS COCO file (JSON).
+- _class_map_ : convert the xcf files to images that each pixel labeled as its class index.
 
 The cli tool can be initialized in two ways: (a) using config files, and (b) using commandline arguments.
 
@@ -46,21 +47,20 @@ The cli tool can be initialized in two ways: (a) using config files, and (b) usi
 
 The CLI tool provides the following options,
 
-| **Options**  	| **Other forms** 	| **Description**                            	|
-|--------------	|-----------------	|--------------------------------------------	|
-| --dir_in     	| --dir -d        	| Directory containing the images.           	|
-| --file_out   	| --out -o        	| Output Directory                           	|
-| --handler    	| --type          	| Handler Type [initially "mask" and "coco"] 	|
-| --binarize   	| -b              	| Whether binarize the masks.                	|
-| --num_worker 	| -w              	| Number of Workers                          	|
-| --config     	|                 	| Configuration file path                    	|
-| --name       	| -n              	| Set dataset name                           	|
-| --info       	|                 	| Set description                            	|
-| --url        	|                 	| Set URL                                    	|
-| --version    	|                 	| Set version                                	|
-| --year       	|                 	| Set Year                                   	|
-| --contrib    	|                 	| Set contributor                            	|
-| --category   	| -c              	| Class Categories                           	|
+| **Options**  	| **Other forms** 	| **Description**                            	              |
+|--------------	|-----------------	|--------------------------------------------	--------------|
+| --dir_in     	| --dir -d        	| Directory containing the images.                        	|
+| --file_out   	| --out -o        	| Output Directory                           	              |
+| --handler    	| --type          	| Handler Type [initially "mask", "class_map" and "coco"] 	|
+| --num_worker 	| -w              	| Number of Workers                                       	|
+| --config     	|                 	| Configuration file path                                 	|
+| --name       	| -n              	| Set dataset name                                        	|
+| --info       	|                 	| Set description                                         	|
+| --url        	|                 	| Set URL                                                 	|
+| --version    	|                 	| Set version                                             	|
+| --year       	|                 	| Set Year                                                 	|
+| --contrib    	|                 	| Set contributor                                         	|
+| --category   	| -c              	| Class Categories                                         	|
 
 #### Installation
 
@@ -81,7 +81,7 @@ pip install gimp-labeling-converter
 ```
 gimp_labeling_converter --dir "/home/phm/my-dataset/labeled" \
                 --out "/home/phm/Documents/dataset" \
-                --type "mask" --binarize -w 5 \
+                --type "mask" -w 5 \
                 -c "defect" -c "surface_defect" \
                 -n "Parham Test"
 ```

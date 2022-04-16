@@ -44,7 +44,10 @@ def list_handlers() -> List[str]:
 __file_formats__ = ['jpg', 'jpeg', 'png', 'tiff', 'bmp']
 
 @exception_logger
-def gimp_helper(file : str, binarize : bool = False, **kwargs) -> Dict[str, Any]:
+def gimp_helper(
+    file : str,
+    category : Dict[str, int] = None,
+    **kwargs) -> Dict[str, Any]:
 
     # Argument initialization and checking
     if not Path(file).is_file():
@@ -78,11 +81,12 @@ def gimp_helper(file : str, binarize : bool = False, **kwargs) -> Dict[str, Any]
                 # Select only layers with 4 channels.
                 if img.mode in ("RGBA", "LA") or (
                     img.mode == "P" and "transparency" in img.info):
-                    img_ch = img.convert('1')
-                    if binarize:
-                        channels = img.split()
-                        img_ch = channels[-1].convert("1")
-                    result[layer.name] = np.where(np.asarray(img_ch) != 0, 255, 0).astype(np.int8)
+                    channels = img.split()
+                    img_ch = channels[-1].convert('1')
+                    pix_value = 255
+                    if category is not None and len(category) != 0:
+                        pix_value = category[layer.name]
+                    result[layer.name] = np.where(np.asarray(img_ch) != 0, pix_value, 0).astype(np.int8)
     return result
 
 @exception_logger
