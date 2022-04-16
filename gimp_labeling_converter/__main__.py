@@ -16,7 +16,7 @@ logging.basicConfig(
 
 parser = argparse.ArgumentParser(description="Processing images labeled by GIMP")
 parser.add_argument('--dir_in', '--dir', '-d', type=str, help="Directory containing the images.")
-parser.add_argument('--file_out', '--out', '-o', type=str, required=False, help="Output Directory")
+parser.add_argument('--file_out', '--out', '-o', type=str, required=True, help="Output Directory")
 parser.add_argument('--handler', '--type', required=False, default='mask', choices=list_handlers(), help="Handler Type")
 parser.add_argument('--binarize', '-b', action='store_true', help="Whether binarize the masks.")
 parser.add_argument('--num_worker', '-w', type=int, required=False, default=1, help="Number of workers.")
@@ -45,12 +45,16 @@ def main():
     elif args.dir_in is None or not os.path.isdir(args.dir_in):
         logging.error(f'{args.dir_in} is not a directory!')
         return
-    else:
+    elif args.category is None or len(args.category) == 0:
         config = vars(args)
         cs = {}
         for i in range(len(args.category)):
             cs[args.category[i]] = (i + 1)
         config['category'] = cs
+        # Save the category lookup
+        with open(os.path.join(args.file_out, 'categories.txt'), 'w') as fout:
+            for (cname, cid) in cs:
+                fout.write(f'{cname},{cid}\n')
 
     run_translator(
         config['dir_in'], 
