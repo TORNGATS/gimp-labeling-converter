@@ -1,6 +1,6 @@
-phm/__pycache__/*
 .vscode/*
 gimp_labeling_converter.egg-info/*
 build/*
 dist/*
 system.log
+gimp_labeling_converter/__pycache__/*
