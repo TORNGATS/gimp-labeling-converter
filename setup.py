@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
  
 setuptools.setup(
     name="gimp_labeling_converter",
-    version="1.1.0",
+    version="2.0.0",
     author="Parham Nooralishahi",
     author_email="parham.nooralishahi@gmail.com",
     description="it provides a CLI tool that converts XCF file to a new format suitable for labeling. The tool also make the users able to add their own handlers for addling support to other types of outputs.",
