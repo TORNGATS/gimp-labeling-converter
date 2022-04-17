@@ -44,6 +44,22 @@ def list_handlers() -> List[str]:
 __file_formats__ = ['jpg', 'jpeg', 'png', 'tiff', 'bmp']
 
 @exception_logger
+def generate_cmap(
+    file : str,
+    helper : Callable,
+    category : Dict[str, int], 
+    **kwargs) -> Dict[str, Any]:
+
+    res = {}
+    layers = helper(file, category, **kwargs)
+    res['original'] = layers.pop('original')
+
+    layers = list(layers.values())
+    layers = np.dstack(layers)
+    res['target'] = np.amax(layers, axis=2)
+    return res
+
+@exception_logger
 def gimp_helper(
     file : str,
     category : Dict[str, int] = None,

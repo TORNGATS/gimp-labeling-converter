@@ -8,13 +8,15 @@ import multiprocessing
 
 from PIL import Image
 from typing import Any, Callable, Dict, List, Union
-from gimp_labeling_converter.gimp import translator 
+from gimp_labeling_converter.gimp import generate_cmap, translator 
 
 def __save_cmask_target(
-    file: str, helper, 
+    file: str, 
+    helper : Callable, 
     file_out : str = None, 
     category : Dict[str, int] = None, 
     **kwargs):
+
     dout = file_out if file_out else os.path.pardir(file)
     
     orig_dir = os.path.join(dout, 'original')
@@ -26,15 +28,21 @@ def __save_cmask_target(
     filename = os.path.basename(file)
     fname = filename.split(".")[0]
 
-    orig = res.pop('original')
-    orig.save(os.path.join(orig_dir, fname) + ".png")
+    res = generate_cmap(file, helper, category, **kwargs)
+    orig = res['original']
+    out = res['target']
 
-    # Concatenate the class layers
-    layers = list(res.values())
-    layers = np.dstack(layers)
-    out = np.amax(layers, axis=2)
+    orig.save(os.path.join(orig_dir, fname) + ".png")
+    
     out_img = Image.fromarray(np.uint8(out))
     out_img.save(os.path.join(target_dir, fname) + ".png")
+    
+    # orig = res.pop('original')
+
+    # # Concatenate the class layers
+    # layers = list(res.values())
+    # layers = np.dstack(layers)
+    # out = np.amax(layers, axis=2)
 
 @translator('class_map')
 def handler_class_map__(
