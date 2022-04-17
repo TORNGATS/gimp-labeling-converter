@@ -106,6 +106,10 @@ Assuming the config file named as "./coco.json",
 gimp_labeling_converter --config "./coco.json"
 ```
 
+## XCF Dataset
+
+Another feature provided in this repository is the customized dataset for Pytorch designed to handle XCF dataset.
+
 ## Contact
 Parham Nooralishahi - parham.nooralishahi@gmail.com | [@phm](https://www.linkedin.com/in/parham-nooralishahi/) <br/>
 
